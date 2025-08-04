@@ -87,7 +87,7 @@
             width: 100%;
             background: var(--gradient-1);
             padding: 1rem;
-            z-index: 100;
+            z-index: 1000;
             box-shadow: var(--shadow-md);
             display: flex;
             justify-content: center;
@@ -190,22 +190,262 @@
             overflow: hidden;
             padding: 2rem;
             text-align: center;
-            background-size: 400% 400%;
-            animation: gradientAnimation 15s ease infinite;
         }
 
+        /* انیمیشن‌های پس‌زمینه جدید */
+        
+        /* 1. افکت پارتیکل برای سکشن اول */
+        .particles-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: var(--border-radius-full);
+            pointer-events: none;
+            animation: particleFloat 15s infinite linear;
+        }
+        
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* 2. موج‌های متحرک برای سکشن دوم */
+        .wave-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+        
+        .wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 200%;
+            height: 100px;
+            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg"><path d="M0 0v46.29c47.79 22.2 103.59 32.17 158 28 70.36-5.37 136.33-33.31 206.8-37.5 73.84-4.36 147.54 16.88 218.2 35.26 69.27 18.19 138.3 24.88 209.4 13.08 36.15-6 69.85-17.84 104.45-29.34C989.49 25 1113-14.29 1200 52.47V0z" fill="%236C5CE7" opacity=".25"/></svg>');
+            background-size: 1200px 100px;
+            animation: waveAnimation 10s linear infinite;
+        }
+        
+        .wave:nth-child(2) {
+            bottom: 10px;
+            animation: waveAnimation 8s linear infinite;
+            opacity: 0.6;
+        }
+        
+        .wave:nth-child(3) {
+            bottom: 20px;
+            animation: waveAnimation 6s linear infinite;
+            opacity: 0.4;
+        }
+        
+        @keyframes waveAnimation {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+        
+        /* 3. حباب‌های شناور برای سکشن سوم */
+        .bubbles-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+        
+        .bubble {
+            position: absolute;
+            bottom: -100px;
+            border-radius: var(--border-radius-full);
+            background: rgba(255, 255, 255, 0.2);
+            animation: bubbleRise 15s infinite ease-in;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5), inset 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+        
+        @keyframes bubbleRise {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-120vh) scale(0.5) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* 4. گرادینت متحرک پیشرفته برای سکشن چهارم */
+        .animated-gradient {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--accent-2), var(--primary), var(--secondary), var(--accent-1));
+            background-size: 400% 400%;
+            animation: gradientAnimation 10s ease infinite;
+            z-index: 0;
+        }
+        
+        .animated-gradient::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 20px,
+                rgba(255, 255, 255, 0.05) 20px,
+                rgba(255, 255, 255, 0.05) 40px
+            );
+            animation: patternMove 10s linear infinite;
+        }
+        
         @keyframes gradientAnimation {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
+        
+        @keyframes patternMove {
+            0% { transform: translateX(0) translateY(0); }
+            50% { transform: translateX(50px) translateY(50px); }
+            100% { transform: translateX(0) translateY(0); }
+        }
+        
+        /* 5. ستاره‌های چشمک‌زن برای سکشن پنجم */
+        .stars-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: var(--light);
+            border-radius: var(--border-radius-full);
+            animation: twinkle 5s infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        
+        /* 6. الگوی شبکه‌ای متحرک برای سکشن ششم */
+        .grid-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(var(--accent-1) 1px, transparent 1px),
+                             linear-gradient(90deg, var(--accent-1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            background-position: center center;
+            opacity: 0.2;
+            animation: gridMove 20s linear infinite;
+            z-index: 0;
+        }
+        
+        .grid-dots {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(var(--accent-3) 2px, transparent 2px);
+            background-size: 30px 30px;
+            opacity: 0.3;
+            animation: dotsMove 15s linear infinite;
+            z-index: 0;
+        }
+        
+        @keyframes gridMove {
+            0% { transform: translateX(0) translateY(0); }
+            100% { transform: translateX(50px) translateY(50px); }
+        }
+        
+        @keyframes dotsMove {
+            0% { transform: translateX(0) translateY(0); }
+            100% { transform: translateX(-50px) translateY(-50px); }
+        }
 
-        .section1 { background: var(--gradient-1); }
-        .section2 { background: var(--gradient-2); }
-        .section3 { background: var(--gradient-3); }
-        .section4 { background: var(--gradient-4); }
-        .section5 { background: var(--gradient-5); }
-        .section6 { background: var(--gradient-6); }
+        /* سکشن‌ها با پس‌زمینه‌های مختلف */
+        .section1 { 
+            background: var(--gradient-1);
+            position: relative;
+        }
+        
+        .section2 { 
+            background: var(--gradient-2);
+            position: relative;
+        }
+        
+        .section3 { 
+            background: var(--gradient-3);
+            position: relative;
+        }
+        
+        .section4 {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .section5 { 
+            background: var(--gradient-5);
+            position: relative;
+        }
+        
+        .section6 { 
+            background: var(--gradient-6);
+            position: relative;
+        }
 
         /* محتوای باکس */
         .content {
@@ -524,8 +764,8 @@
             50% { transform: translate(-50%, -50%) scale(1.2); }
             75% { transform: translate(-70%, -30%); }
         }
-
-        /* دهان کارتونی */
+                
+        /* کد اصلی دهان */
         .mouth {
             position: absolute;
             width: 90px;
@@ -539,13 +779,13 @@
             overflow: hidden;
             animation: mouthMove 3s infinite;
         }
-
+        
         @keyframes mouthMove {
             0%, 100% { height: 40px; border-radius: 0 0 70px 70px; }
             30%, 70% { height: 20px; border-radius: 0 0 50px 50px; }
             50% { height: 50px; border-radius: 0 0 90px 90px; }
         }
-
+        
         .mouth::after {
             content: '';
             position: absolute;
@@ -575,7 +815,7 @@
 
         @keyframes sweatDrop {
             0%, 100% { transform: translateY(0) rotate(20deg) scale(0); opacity: 0; }
-            30% { transform: translateY(0) rotate(20deg) scale(1); opacity: 1; }
+            30% { transform: translateY(0) rotate(20deg) scale(0.75); opacity: 1; }
             80% { transform: translateY(40px) rotate(20deg) scale(0.5); opacity: 0.7; }
             100% { transform: translateY(50px) rotate(20deg) scale(0); opacity: 0; }
         }
@@ -666,64 +906,6 @@
             50% { transform: rotate(-3deg) scale(1.05); }
         }
 
-        /* کانفتی */
-        .confetti {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-            z-index: 5;
-        }
-
-        .confetti-piece {
-            position: absolute;
-            width: 10px;
-            height: 20px;
-            background-color: var(--primary);
-            top: 0;
-            will-change: transform, opacity;
-            animation: confettiFall 5s linear infinite;
-        }
-
-        @keyframes confettiFall {
-            0% {
-                transform: translateY(-100px) rotate(0) scale(1);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(100vh) rotate(720deg) scale(0.5);
-                opacity: 0;
-            }
-        }
-
-        /* دکمه تغییر تم */
-        .theme-toggle {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            z-index: 1000;
-            width: 50px;
-            height: 50px;
-            border-radius: var(--border-radius-full);
-            background: var(--dark);
-            color: var(--light);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            border: none;
-            box-shadow: var(--shadow-md);
-            transition: all var(--transition-normal);
-            font-size: var(--font-size-xl);
-            border: 3px solid var(--light);
-        }
-
-        .theme-toggle:hover {
-            transform: scale(1.1) rotate(10deg);
-        }
-
         /* پنجره نکته - برای نمایش اطلاعات کوتاه */
         .tip-box {
             position: absolute;
@@ -759,38 +941,6 @@
             font-size: var(--font-size-sm);
             border: 2px solid var(--dark);
             transform: rotate(-5deg);
-        }
-
-        /* پشت‌زمینه با الگوهای کمیک */
-        .comic-pattern {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-size: 20px 20px;
-            opacity: 0.1;
-            pointer-events: none;
-        }
-
-        .pattern-dots {
-            background-image: radial-gradient(var(--dark) 2px, transparent 2px);
-            background-size: 30px 30px;
-        }
-
-        .pattern-lines {
-            background-image: linear-gradient(45deg, var(--dark) 25%, transparent 25%, transparent 75%, var(--dark) 75%, var(--dark)), 
-                            linear-gradient(45deg, var(--dark) 25%, transparent 25%, transparent 75%, var(--dark) 75%, var(--dark));
-            background-size: 60px 60px;
-            background-position: 0 0, 30px 30px;
-        }
-
-        .pattern-zigzag {
-            background: linear-gradient(135deg, var(--dark) 25%, transparent 25%) -10px 0,
-                        linear-gradient(225deg, var(--dark) 25%, transparent 25%) -10px 0,
-                        linear-gradient(315deg, var(--dark) 25%, transparent 25%),
-                        linear-gradient(45deg, var(--dark) 25%, transparent 25%);
-            background-size: 20px 20px;
         }
 
         /* انفجار کمیک */
@@ -871,10 +1021,23 @@
             }
             
             .mouth {
-                width: 70px;
-                height: 30px;
-                bottom: 40px;
+                width: 50px;
+                height: 10px;
+                bottom: 25px;
+                border-radius: 0 0 55px 55px;
+                border-width: 2px;
             }
+            
+            .mouth::after {
+                width: 25%;
+                height: 25%;
+            }
+            
+            @keyframes mouthMove {
+                0%, 100% { height: 30px; border-radius: 0 0 55px 55px; }
+                30%, 70% { height: 15px; border-radius: 0 0 40px 40px; }
+                50% { height: 35px; border-radius: 0 0 70px 70px; }
+            }            
             
             .speech-bubble { 
                 width: 180px; 
@@ -973,14 +1136,12 @@
 </head>
 <body>
 
-    <!-- دکمه تغییر تم -->
-    <button class="theme-toggle">🌓</button>
 
     <!-- کانتینر اصلی -->
     <div class="container">
-        <!-- سکشن 1 -->
+        <!-- سکشن 1 - با پارتیکل‌های شناور -->
         <section class="section1" id="section1">
-            <div class="comic-pattern pattern-dots"></div>
+            <div class="particles-container"></div>
             <div class="content">
                 <h1>سه سوت اکسم</h1>
                 <div class="timer">۳</div>
@@ -998,12 +1159,16 @@
                 <div class="speech-bubble">وای، خیلی زوده!</div>
             </div>
             <div class="comic-strip">باشگاه سه سوتی‌ها</div>
-            <div class="tip-box">یادتون باشه: اینجا جای خجالت نیست، همه توی یک قایقیم!</div>
+            <div class="tip-box">یادتون باشه: اینجا جای خجالت نیست، همه مثل تو خاک بر سر هستیم!</div>
         </section>
 
-        <!-- سکشن 2 -->
+        <!-- سکشن 2 - با موج‌های متحرک -->
         <section class="section2" id="section2">
-            <div class="comic-pattern pattern-lines"></div>
+            <div class="wave-container">
+                <div class="wave"></div>
+                <div class="wave"></div>
+                <div class="wave"></div>
+            </div>
             <div class="content">
                 <h2>آیا پارتنرتان شما را خروس می‌نامد؟</h2>
                 <p>وقتی همه می‌گویند "قوقولی قوقو" و دوستانتان ساعت شنی هدیه می‌دهند، وقت آن است که با ما اعتماد به نفس خود را باز یابید!</p>
@@ -1022,12 +1187,12 @@
             <div class="tip-box">آمارها می‌گویند ۳۰٪ مردان این مشکل را دارند، شما تنها نیستید!</div>
         </section>
 
-        <!-- سکشن 3 -->
+        <!-- سکشن 3 - با حباب‌های شناور -->
         <section class="section3" id="section3">
-            <div class="comic-pattern pattern-zigzag"></div>
+            <div class="bubbles-container"></div>
             <div class="content">
                 <h2>آیا روش‌های عجیب را امتحان کرده‌اید؟</h2>
-                <p>فلفل روی غذا، بی‌حس‌کننده‌ها، یا خواندن کتاب‌های فلسفی؟ این روش‌ها جواب نمی‌دهند! وقت تغییر با راهکارهای ماست!</p>
+                <p>فلفل روی غذا، بی‌حس‌کننده‌هاو مواد، یا تمرینات تافل iBT؟ این روش‌ها جواب نمی‌دهند! وقت تغییر با راهکارهای ماست!</p>
                 <a href="#section4" class="btn" data-sound="click">همه را امتحان کرده‌ام!</a>
             </div>
             <div class="cartoon-container">
@@ -1043,15 +1208,14 @@
             <div class="tip-box">شنیده‌اید می‌گویند به فرمول ریاضی فکر کنید؟ فقط موقع امتحان ریاضی جواب می‌دهد!</div>
         </section>
 
-        <!-- سکشن 4 -->
+        <!-- سکشن 4 - با گرادینت متحرک پیشرفته -->
         <section class="section4" id="section4">
-            <div class="comic-pattern pattern-dots"></div>
+            <div class="animated-gradient"></div>
             <div class="content">
                 <h2>نجات در راه است!</h2>
-                <p>دیرینگ دیرییینگ! با روش‌های علمی و طبیعی ما، دیگر نیازی به شمردن کاشی‌های سقف نیست! آماده تحول هستید؟</p>
+                <p> با روش‌های علمی و طبیعی ما، دیگر نیازی به شمردن کاشی‌های سقف نیست! آماده تحول هستید؟</p>
                 <a href="#section5" class="btn" data-sound="click">نجاتم بده!</a>
             </div>
-            <div class="confetti"></div>
             <div class="cartoon-container">
                 <div class="cartoon">
                     <div class="eye left"><div class="pupil"></div></div>
@@ -1065,15 +1229,14 @@
             <div class="tip-box">از این به بعد، دیگر نیازی به شمردن گوسفندان برای تمرکز نیست!</div>
         </section>
 
-        <!-- سکشن 5 -->
+        <!-- سکشن 5 - با ستاره‌های چشمک‌زن -->
         <section class="section5" id="section5">
-            <div class="comic-pattern pattern-lines"></div>
+            <div class="stars-container"></div>
             <div class="content">
                 <h2>ورزش‌های معجزه‌آسا!</h2>
                 <p>با برنامه ۳ ماهه ما، از سه سوت به صد سوت برسید! دیگر خروس نیستید، بلکه دایناسور خواهید شد!</p>
                 <a href="#section6" class="btn" data-sound="click">من آماده‌ام!</a>
             </div>
-            <div class="confetti"></div>
             <div class="cartoon-container">
                 <div class="cartoon">
                     <div class="eye left"><div class="pupil"></div></div>
@@ -1087,15 +1250,15 @@
             <div class="tip-box">یادتان باشد تمرین منظم کلید موفقیت است!</div>
         </section>
 
-        <!-- سکشن 6 -->
+        <!-- سکشن 6 - با الگوی شبکه‌ای متحرک -->
         <section class="section6" id="section6">
-            <div class="comic-pattern pattern-zigzag"></div>
+            <div class="grid-background"></div>
+            <div class="grid-dots"></div>
             <div class="content">
                 <h2>همین حالا ثبت‌نام کنید!</h2>
                 <p>با بسته ویژه ما، کرنومتر، کتاب "۱۰۰۱ فکر غیرجذاب" و چای "آروم باش پسر" هدیه بگیرید!</p>
                 <a href="#" class="btn" data-sound="success">همین الان شروع کن!</a>
             </div>
-            <div class="confetti"></div>
             <div class="cartoon-container">
                 <div class="cartoon">
                     <div class="eye left"><div class="pupil"></div></div>
@@ -1116,6 +1279,69 @@
         let darkMode = false;
         const explosionTexts = ['بنگ!', 'پاف!', 'واو!', 'هورا!', 'یوهو!'];
         
+        // ایجاد پارتیکل‌های پس‌زمینه برای سکشن 1
+        function createParticles() {
+            const container = document.querySelector('.particles-container');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // ویژگی‌های تصادفی پارتیکل
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                particle.style.width = `${Math.random() * 15 + 5}px`;
+                particle.style.height = particle.style.width;
+                particle.style.animationDelay = `${Math.random() * 10}s`;
+                particle.style.animationDuration = `${Math.random() * 10 + 10}s`;
+                particle.style.backgroundColor = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+                particle.style.opacity = `${Math.random() * 0.5 + 0.3}`;
+                
+                container.appendChild(particle);
+            }
+        }
+        
+        // ایجاد حباب‌های شناور برای سکشن 3
+        function createBubbles() {
+            const container = document.querySelector('.bubbles-container');
+            const bubbleCount = 40;
+            
+            for (let i = 0; i < bubbleCount; i++) {
+                const bubble = document.createElement('div');
+                bubble.classList.add('bubble');
+                
+                // ویژگی‌های تصادفی حباب
+                bubble.style.left = `${Math.random() * 100}%`;
+                bubble.style.width = `${Math.random() * 40 + 10}px`;
+                bubble.style.height = bubble.style.width;
+                bubble.style.animationDelay = `${Math.random() * 15}s`;
+                bubble.style.animationDuration = `${Math.random() * 10 + 10}s`;
+                
+                container.appendChild(bubble);
+            }
+        }
+        
+        // ایجاد ستاره‌های چشمک‌زن برای سکشن 5
+        function createStars() {
+            const container = document.querySelector('.stars-container');
+            const starCount = 100;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                // ویژگی‌های تصادفی ستاره
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.width = `${Math.random() * 5 + 2}px`;
+                star.style.height = star.style.width;
+                star.style.animationDelay = `${Math.random() * 5}s`;
+                
+                container.appendChild(star);
+            }
+        }
+        
         // انیمیشن ورود المان‌ها با اینترسکشن آبزرور
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -1131,11 +1357,6 @@
                     // نکته
                     const tipBox = entry.target.querySelector('.tip-box');
                     if (tipBox) setTimeout(() => tipBox.classList.add('visible'), 1000);
-                    
-                    // کانفتی برای بخش‌های خاص
-                    if (['section4', 'section5', 'section6'].includes(entry.target.id)) {
-                        createConfetti(entry.target);
-                    }
                 } else {
                     // مخفی کردن المان‌ها هنگام خروج از دید
                     const content = entry.target.querySelector('.content');
@@ -1152,39 +1373,6 @@
         
         // مشاهده تمام سکشن‌ها
         document.querySelectorAll('section').forEach(section => observer.observe(section));
-        
-        // ایجاد کانفتی
-        function createConfetti(section) {
-            const confetti = section.querySelector('.confetti');
-            if (!confetti) return;
-            
-            // پاک کردن کانفتی‌های قبلی
-            confetti.innerHTML = '';
-            
-            // ایجاد کانفتی‌های جدید
-            const count = 40; // تعداد کانفتی‌ها
-            
-            for (let i = 0; i < count; i++) {
-                const piece = document.createElement('div');
-                piece.classList.add('confetti-piece');
-                
-                // تنظیم ویژگی‌های تصادفی
-                piece.style.left = `${Math.random() * 100}%`;
-                piece.style.width = `${Math.random() * 15 + 5}px`;
-                piece.style.height = `${Math.random() * 15 + 5}px`;
-                piece.style.animationDelay = `${Math.random() * 3}s`;
-                piece.style.animationDuration = `${Math.random() * 3 + 3}s`;
-                piece.style.backgroundColor = confettiColors[Math.floor(Math.random() * confettiColors.length)];
-                
-                // تغییر شکل کانفتی به صورت تصادفی
-                const shapes = ['50%', '0%']; // دایره و مربع
-                const shape = shapes[Math.floor(Math.random() * shapes.length)];
-                piece.style.borderRadius = shape;
-                
-                // اضافه کردن به DOM
-                confetti.appendChild(piece);
-            }
-        }
         
         // ایجاد افکت انفجار
         function createExplosion(x, y) {
@@ -1283,46 +1471,12 @@
             });
         });
         
-        // تغییر حالت تیره/روشن
-        document.querySelector('.theme-toggle').addEventListener('click', function() {
-            darkMode = !darkMode;
-            
-            if (darkMode) {
-                document.documentElement.style.setProperty('--light', '#2D3436');
-                document.documentElement.style.setProperty('--dark', '#F9F9F9');
-                this.textContent = '🌞';
-            } else {
-                document.documentElement.style.setProperty('--light', '#F9F9F9');
-                document.documentElement.style.setProperty('--dark', '#2D3436');
-                this.textContent = '🌓';
-            }
-        });
-        
-        // افکت پارالکس پیشرفته
-        window.addEventListener('scroll', () => {
-            document.querySelectorAll('section').forEach(section => {
-                const scrollPosition = window.scrollY;
-                const sectionPosition = section.offsetTop;
-                const distance = scrollPosition - sectionPosition;
-                
-                // حرکت الگوهای پس‌زمینه
-                const pattern = section.querySelector('.comic-pattern');
-                if (pattern) {
-                    pattern.style.transform = `translateY(${distance * 0.1}px)`;
-                }
-                
-                // حرکت نوار کمیک
-                const comicStrip = section.querySelector('.comic-strip');
-                if (comicStrip && comicStrip.classList.contains('visible')) {
-                    comicStrip.style.transform = `rotate(-5deg) translateX(${distance * 0.05}px)`;
-                }
-            });
-        });
-        
         // برای اجرا بعد از لود صفحه
         window.addEventListener('load', function() {
-            // ایجاد کانفتی برای سکشن 1
-            createConfetti(document.getElementById('section1'));
+            // ایجاد افکت‌های پس‌زمینه
+            createParticles();
+            createBubbles();
+            createStars();
             
             // ایجاد انفجار خوشامدگویی
             setTimeout(() => {

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>صفحه پیدا نشد - سه سوت اکسم</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Vazir', 'IranSans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      text-rendering: optimizeLegibility;
+    }
+
+    body {
+      overflow-x: hidden;
+      background: linear-gradient(135deg, #f9d423, #ff4e50);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 900px;
+      padding: 2rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    h1 {
+      font-size: 3.5rem;
+      color: #ffffff;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      opacity: 1;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      font-size: 1.8rem;
+      line-height: 1.6;
+      color: #ffffff;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+      opacity: 1;
+      margin-bottom: 2rem;
+    }
+
+    .btn {
+      display: inline-block;
+      background-color: #e74c3c;
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-size: 1.2rem;
+      opacity: 1;
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #c0392b;
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .emoji {
+      font-size: 6rem;
+      animation: float 6s ease-in-out infinite;
+      margin-bottom: 1.5rem;
+      display: block;
+      opacity: 1;
+    }
+
+    .highlight {
+      background: rgba(255, 255, 255, 0.3);
+      padding: 0.5rem 1rem;
+      border-radius: 10px;
+      display: inline-block;
+      opacity: 1;
+    }
+
+    .bg-animation {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      opacity: 0.2;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0px); }
+    }
+
+    @font-face {
+      font-family: 'Vazir';
+      src: url('https://cdn.fontcdn.ir/Font/Persian/Vazir/Vazir.woff2') format('woff2'),
+           url('https://fonts.cdnfonts.com/s/14897/Vazir-Regular.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    @media (max-width: 768px) {
+      h1 { font-size: 2.5rem; }
+      p { font-size: 1.4rem; }
+      .emoji { font-size: 4rem; }
+      .btn { font-size: 1rem; padding: 0.8rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-animation"></div>
+  <div class="container">
+    <span class="emoji">😅</span>
+    <h1>اوپس! انگار خیلی زود گم شدیم!</h1>
+    <p>صفحه‌ای که دنبالش هستید مثل یه "سه سوت" غیبش زده! نگران نباشید، ما اینجا هستیم تا شما رو به مسیر درست برگردونیم.</p>
+    <p class="highlight">دیرینگ دیرییینگ!</p>
+    <a href="index.html" class="btn">برگرد به صفحه اصلی</a>
+  </div>
+
+  <script>
+    // Fallback if GSAP fails to load
+    document.querySelectorAll('.container > *').forEach(el => {
+      el.style.opacity = 1;
+    });
+
+    // GSAP Animations
+    if (typeof gsap !== 'undefined') {
+      // Animate container elements
+      gsap.from(['.emoji', 'h1', 'p', '.btn'], {
+        opacity: 0,
+        y: 50,
+        duration: 1,
+        stagger: 0.2,
+        ease: 'back.out(1.7)'
+      });
+
+      // Button bounce effect
+      gsap.to('.btn', {
+        scale: 1.1,
+        duration: 0.3,
+        repeat: -1,
+        yoyo: true,
+        ease: 'power1.inOut'
+      });
+
+      // Emoji rotation
+      gsap.to('.emoji', {
+        rotation: 360,
+        duration: 10,
+        repeat: -1,
+        ease: 'linear'
+      });
+
+      // Background animation
+      gsap.to('.bg-animation', {
+        backgroundPosition: '200% 200%',
+        duration: 20,
+        repeat: -1,
+        ease: 'linear'
+      });
+    }
+  </script>
+</body>
+</html>
